@@ -6,11 +6,14 @@ export class Player extends Entity {
   constructor(playState: PlayState) {
     super(playState);
     this.setOriginToCenter();
+    this.vx = 500;
   }
   getSpriteName() {
     return "knight";
   }
-  update(delta: number) {}
+  update(delta: number) {
+    super.update(delta);
+  }
   draw(delta: number) {
     this.setDisplayX(RENDERER_WIDTH / 2);
     this.setDisplayY(RENDERER_HEIGHT / 2);

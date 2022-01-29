@@ -5,10 +5,10 @@ import { GameState } from "../gameState/gameState";
 export abstract class Entity implements Updatable {
   gameState: GameState;
 
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
+  x: number = 0;
+  y: number = 0;
+  vx: number = 0;
+  vy: number = 0;
   sprite: Sprite;
 
   constructor(gameState: GameState) {
@@ -16,7 +16,10 @@ export abstract class Entity implements Updatable {
     this.setSpriteTexture(this.getSpriteTexture());
   }
 
-  abstract update(delta: number);
+  update(delta: number) {
+    this.sprite.x += this.vx * delta;
+    this.sprite.y += this.vy * delta;
+  }
   abstract draw(delta: number);
 
   private setSpriteTexture(texture: Texture) {
@@ -36,6 +39,20 @@ export abstract class Entity implements Updatable {
   setPos(x: number, y: number) {
     this.setX(x);
     this.setY(y);
+  }
+
+  addX(x: number) {
+    this.x += x;
+  }
+  addY(y: number) {
+    this.y += y;
+  }
+
+  setVx(vx: number) {
+    this.vx = vx;
+  }
+  setVy(vy: number) {
+    this.vy = vy;
   }
 
   getX() {

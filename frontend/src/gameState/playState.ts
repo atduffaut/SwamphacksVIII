@@ -21,11 +21,17 @@ export class PlayState extends GameState implements Updatable {
       rockPile.setDisplayY(
         Math.random() * (RENDERER_HEIGHT - rockPile.getHeight())
       );
+      rockPile.setVx(0.5);
       this.addEntity(rockPile);
     }
   }
 
-  update(delta: number) {}
+  update(delta: number) {
+    this.player.update(delta);
+    this.entities.forEach((entity) => {
+      entity.update(delta);
+    });
+  }
 
   draw(delta: number) {
     this.player.draw(delta);
