@@ -1,6 +1,7 @@
 import { Sprite, Texture } from "pixi.js";
 import { TEXTURES } from "../assetManager";
 import { GameState } from "../gameState/gameState";
+import { Background } from "./background";
 
 export abstract class Entity implements Updatable {
   gameState: GameState;
@@ -31,9 +32,13 @@ export abstract class Entity implements Updatable {
   abstract getSpriteName(): string;
 
   setX(x: number) {
+    x = Math.max(x,0);
+    x = Math.min(x,2560);
     this.x = x;
   }
   setY(y: number) {
+    y = Math.max(y,0);
+    y = Math.min(y,2560);
     this.y = y;
   }
   setPos(x: number, y: number) {
@@ -42,10 +47,10 @@ export abstract class Entity implements Updatable {
   }
 
   addX(x: number) {
-    this.x += x;
+    this.setX(this.x+x);
   }
   addY(y: number) {
-    this.y += y;
+    this.setY(this.y+y);
   }
 
   setVx(vx: number) {
@@ -60,6 +65,12 @@ export abstract class Entity implements Updatable {
   }
   getY() {
     return this.y;
+  }
+  getVx() {
+    return this.vx;
+  }
+  getVy() {
+    return this.vy;
   }
 
   setDisplayX(x: number) {

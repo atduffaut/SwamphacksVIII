@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 import { PlayState } from "./gameState/playState";
 
-export const SCALE = 3;
+export const SCALE = 2;
 
 let app = new PIXI.Application({ resizeTo: window });
 app.stage.scale.x = SCALE;

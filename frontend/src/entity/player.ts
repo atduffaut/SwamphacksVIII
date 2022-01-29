@@ -65,7 +65,10 @@ export class Player extends Entity {
   }
   rotate(x, y) {
     this.setRotation(Math.atan2(y - SCALE*this.getDisplayY(), x - SCALE*this.getDisplayX()) + 3*Math.PI/2);
-  }   
+  }
+  bounce() {
+
+  } 
   draw(delta: number) {
     this.speedManager(delta);
   }

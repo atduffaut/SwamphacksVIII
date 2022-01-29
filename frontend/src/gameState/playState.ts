@@ -53,14 +53,24 @@ export class PlayState extends GameState implements Updatable {
       Math.pow(player.getX() - entity.getX(), 2) +
         Math.pow(player.getY() - entity.getY(), 2)
     );
-
     return centerDistance <= radiusEntity + radiusPlayer;
   }
 
   onCollide(player, entity) {
-    if (entity.getSpriteName() == "rock_pile") {
+    console.log("colliding");
+    if(entity.getSpriteName() == "rock_pile") {
+      if(entity.speed == 0)
+      {
+        if(player.speed >= 2){
+          entity.hit(player.getVx(), player.getVy(), player.speed * 2);
+        }
+        else{
+          player.bounce();
+        }
+      }
     }
     if (entity.getSpriteName() == "knight") {
+      //player.takedamage();
     }
   }
 
@@ -85,7 +95,7 @@ export class PlayState extends GameState implements Updatable {
     );
 
     this.handleCollisions();
-
+    
     this.entities.forEach((entity) => {
       entity.update(delta);
       entity.setDisplayX(
