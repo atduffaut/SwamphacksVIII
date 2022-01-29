@@ -7,8 +7,8 @@ let app = new PIXI.Application({ resizeTo: window });
 app.stage.scale.x = SCALE;
 app.stage.scale.y = SCALE;
 
-export const RENDERER_WIDTH = app.renderer.width / SCALE;
-export const RENDERER_HEIGHT = app.renderer.height / SCALE;
+export const getRendererWidth = () => app.renderer.width / SCALE;
+export const getRendererHeight = () => app.renderer.height / SCALE;
 
 document.body.appendChild(app.view);
 

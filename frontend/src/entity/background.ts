@@ -15,8 +15,6 @@ export class Background extends Entity {
     const textureWidth = texture.width;
     const textureHeight = texture.height;
 
-    console.log(textureWidth);
-
     for (let i = 0; i < MAP_HEIGHT / textureHeight + 1; i++) {
       this.backgroundSprites.push([]);
       for (let j = 0; j < MAP_WIDTH / textureWidth + 1; j++) {
