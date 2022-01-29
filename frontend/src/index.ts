@@ -15,7 +15,7 @@ document.body.appendChild(app.view);
 setTimeout(() => {
   let gameState = new PlayState(app);
 
-  window.addEventListener('click', function (event) {
+  window.addEventListener('mousemove', function (event) {
     gameState.player.move(event.x, event.y);
   });
 

@@ -19,11 +19,11 @@ export class PlayState extends GameState implements Updatable {
 
     this.background.lockToPlayer(this.player);
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
       let rockPile = new RockPile(this);
-      rockPile.setX(Math.random() * (getRendererWidth() - rockPile.getWidth()));
+      rockPile.setX(Math.random() * (this.background.getWidth()*5 - rockPile.getWidth()));
       rockPile.setY(
-        Math.random() * (getRendererHeight() - rockPile.getHeight())
+        Math.random() * (this.background.getHeight()*5 - rockPile.getHeight())
       );
       // rockPile.setVy(0.1);
       this.addEntity(rockPile);
@@ -35,7 +35,7 @@ export class PlayState extends GameState implements Updatable {
     this.entities.forEach((entity) => {
       entity.update(delta);
       entity.setDisplayX(entity.getX() - this.player.getX());
-      entity.setDisplayY(entity.getY() + this.player.getY());
+      entity.setDisplayY(entity.getY() - this.player.getY());
     });
   }
 
