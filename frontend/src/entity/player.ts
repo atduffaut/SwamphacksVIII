@@ -69,13 +69,9 @@ export class Player extends Entity {
   draw(delta: number) {
     this.setDisplayX(getRendererWidth() / 2);
     this.setDisplayY(getRendererHeight() / 2);
-<<<<<<< HEAD
-    //this.setRotation(this.getRotation() + delta / 50);
-=======
 
     this.move();
 
     this.speedManager(delta);
->>>>>>> 3ad550a9cd009a1e527dae88beb17cf869d703a7
   }
 }
