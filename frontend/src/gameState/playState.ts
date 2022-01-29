@@ -1,5 +1,5 @@
 import { Application } from "pixi.js";
-import { RENDERER_HEIGHT, RENDERER_WIDTH } from "..";
+import { getRendererHeight, getRendererWidth } from "..";
 import { Background } from "../entity/background";
 import { Player } from "../entity/player";
 import { RockPile } from "../entity/rockPile";
@@ -17,13 +17,15 @@ export class PlayState extends GameState implements Updatable {
     this.player = new Player(this);
     app.stage.addChild(this.player.sprite);
 
+    this.background.lockToPlayer(this.player);
+
     for (let i = 0; i < 10; i++) {
       let rockPile = new RockPile(this);
       rockPile.setDisplayX(
-        Math.random() * (RENDERER_WIDTH - rockPile.getWidth())
+        Math.random() * (getRendererWidth() - rockPile.getWidth())
       );
       rockPile.setDisplayY(
-        Math.random() * (RENDERER_HEIGHT - rockPile.getHeight())
+        Math.random() * (getRendererHeight() - rockPile.getHeight())
       );
       rockPile.setVx(0.5);
       this.addEntity(rockPile);
