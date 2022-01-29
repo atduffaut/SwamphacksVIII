@@ -1,14 +1,18 @@
 import { Application } from "pixi.js";
 import { RENDERER_HEIGHT, RENDERER_WIDTH } from "..";
+import { Background } from "../entity/background";
 import { Player } from "../entity/player";
 import { RockPile } from "../entity/rockPile";
 import { GameState } from "./gameState";
 
 export class PlayState extends GameState implements Updatable {
   player: Player;
+  background: Background;
 
   constructor(app: Application) {
     super(app);
+
+    this.background = new Background(this);
 
     this.player = new Player(this);
     app.stage.addChild(this.player.sprite);
@@ -34,6 +38,7 @@ export class PlayState extends GameState implements Updatable {
   }
 
   draw(delta: number) {
+    this.background.draw(delta);
     this.player.draw(delta);
     this.entities.forEach((entity) => {
       entity.draw(delta);

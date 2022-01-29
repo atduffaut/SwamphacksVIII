@@ -6,6 +6,7 @@ const PREFIX = "assets";
 const RAW_ASSET_PATHS = {
   knight: "knight.png",
   rock_pile: "rock_pile.png",
+  background: "background.png",
 };
 
 const ASSET_PATHS = Object.entries(RAW_ASSET_PATHS).reduce(
