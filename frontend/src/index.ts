@@ -16,7 +16,10 @@ setTimeout(() => {
   let gameState = new PlayState(app);
 
   window.addEventListener('mousemove', function (event) {
-    gameState.player.move(event.x, event.y);
+    gameState.player.setMouse(event.x, event.y);
+  });
+  window.addEventListener('click', function (event) {
+    gameState.player.speedUp();
     gameState.player.rotate(event.x, event.y);
   });
 
