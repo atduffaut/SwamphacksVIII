@@ -57,7 +57,12 @@ export class PlayState extends GameState implements Updatable {
     return centerDistance <= radiusEntity + radiusPlayer;
   }
 
-  onCollide(player, entitiy) {}
+  onCollide(player, entity) {
+    if (entity.getSpriteName() == "rock_pile") {
+    }
+    if (entity.getSpriteName() == "knight") {
+    }
+  }
 
   handleCollisions() {
     this.entities.forEach((entity) => {
