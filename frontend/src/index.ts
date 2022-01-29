@@ -1,5 +1,8 @@
 import * as PIXI from "pixi.js";
 import { PlayState } from "./gameState/playState";
+import { setupNetworking } from "./networking";
+
+setupNetworking();
 
 export const SCALE = 3;
 
@@ -15,10 +18,10 @@ document.body.appendChild(app.view);
 setTimeout(() => {
   let gameState = new PlayState(app);
 
-  window.addEventListener('mousemove', function (event) {
+  window.addEventListener("mousemove", function (event) {
     gameState.player.setMouse(event.x, event.y);
   });
-  window.addEventListener('click', function (event) {
+  window.addEventListener("click", function (event) {
     gameState.player.speedUp();
     gameState.player.rotate(event.x, event.y);
   });
