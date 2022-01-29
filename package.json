@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "start": "npx tsc && node server-dist/index.js",
+    "start": "cd server && npx tsc && cd .. && node server-dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
