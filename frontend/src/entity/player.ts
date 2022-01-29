@@ -26,6 +26,7 @@ export class Player extends Entity {
     {
       this.mouseX = x;
       this.mouseY = y;
+      this.rotate(x, y);
     }
   }
   move()
@@ -67,14 +68,9 @@ export class Player extends Entity {
   draw(delta: number) {
     this.setDisplayX(getRendererWidth() / 2);
     this.setDisplayY(getRendererHeight() / 2);
-<<<<<<< HEAD
-    this.setRotation(this.getRotation() + delta / 50);
 
     this.move();
 
     this.speedManager(delta);
-=======
-    this.setRotation(this.getRotation());
->>>>>>> 2705248610a3f2f13a6e429c7e0ec0b5788c8d8a
   }
 }
