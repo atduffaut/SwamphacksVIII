@@ -16,10 +16,15 @@ setTimeout(() => {
   let gameState = new PlayState(app);
 
   window.addEventListener('mousemove', function (event) {
+<<<<<<< HEAD
     gameState.player.setMouse(event.x, event.y);
   });
   window.addEventListener('click', function (event) {
     gameState.player.speedUp();
+=======
+    gameState.player.move(event.x, event.y);
+    gameState.player.rotate(event.x, event.y);
+>>>>>>> 2705248610a3f2f13a6e429c7e0ec0b5788c8d8a
   });
 
   app.ticker.add((delta: number) => {

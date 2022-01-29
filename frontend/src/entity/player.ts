@@ -61,13 +61,20 @@ export class Player extends Entity {
       this.cooldown = this.cooldown - delta/60;
     }
   }
+  rotate(x, y) {
+    this.setRotation(Math.atan2(y - 3*this.getDisplayY(), x - 3*this.getDisplayX()) + 3*Math.PI/2);
+  }   
   draw(delta: number) {
     this.setDisplayX(getRendererWidth() / 2);
     this.setDisplayY(getRendererHeight() / 2);
+<<<<<<< HEAD
     this.setRotation(this.getRotation() + delta / 50);
 
     this.move();
 
     this.speedManager(delta);
+=======
+    this.setRotation(this.getRotation());
+>>>>>>> 2705248610a3f2f13a6e429c7e0ec0b5788c8d8a
   }
 }
