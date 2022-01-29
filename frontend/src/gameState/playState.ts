@@ -28,6 +28,16 @@ export class PlayState extends GameState implements Updatable {
       // rockPile.setVy(0.1);
       this.addEntity(rockPile);
     }
+
+    for (let i = 0; i < 100; i++) {
+      let otherPlayer = new Player(this);
+      otherPlayer.setX(Math.random() * (this.background.getWidth()*5 - otherPlayer.getWidth()));
+      otherPlayer.setY(
+        Math.random() * (this.background.getHeight()*5 - otherPlayer.getHeight())
+      );
+      // rockPile.setVy(0.1);
+      this.addEntity(otherPlayer);
+    }
   }
 
   update(delta: number) {
@@ -47,7 +57,14 @@ export class PlayState extends GameState implements Updatable {
 
   draw(delta: number) {
     this.background.draw(delta);
+    
+    this.player.move();
+    this.player.setDisplayX(getRendererWidth() / 2);
+    this.player.setDisplayY(getRendererHeight() / 2);
+    console.log(this.player.x);
+
     this.player.draw(delta);
+    
     this.entities.forEach((entity) => {
       entity.draw(delta);
     });

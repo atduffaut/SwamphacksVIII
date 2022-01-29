@@ -13,7 +13,6 @@ export class Player extends Entity {
     super(playState);
     this.setOriginToCenter();
     this.setPos(getRendererWidth() / 2, getRendererHeight() / 2)
-    this.vx = 1;
   }
   getSpriteName() {
     return "knight";
@@ -36,6 +35,7 @@ export class Player extends Entity {
     let myY = this.getDisplayY()*SCALE;
 
     let dist = Math.sqrt(Math.pow(myX - this.mouseX, 2) + Math.pow(myY - this.mouseY, 2));
+    dist = dist < 1 ? 1 : dist; // Fixes division by zero
 
     this.setVx(((this.mouseX - myX) * this.speed) / dist);
     this.setVy(((this.mouseY - myY) * this.speed) / dist);
@@ -67,11 +67,6 @@ export class Player extends Entity {
     this.setRotation(Math.atan2(y - SCALE*this.getDisplayY(), x - SCALE*this.getDisplayX()) + 3*Math.PI/2);
   }   
   draw(delta: number) {
-    this.setDisplayX(getRendererWidth() / 2);
-    this.setDisplayY(getRendererHeight() / 2);
-
-    this.move();
-
     this.speedManager(delta);
   }
 }

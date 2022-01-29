@@ -129,15 +129,6 @@ server-dist/
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+
+# DS Store
+.DS_Store
