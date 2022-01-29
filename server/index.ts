@@ -3,7 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 
 const app = express();
-app.use(express.static("frontend"));
+app.use(express.static("dist"));
 app.get("/", (req, res) => {
   res.sendFile("index.html");
 });

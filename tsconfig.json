@@ -1,5 +1,5 @@
 {
     "compilerOptions": {
-      "outDir": "./dist/",
+      "outDir": "./server-dist/",
     }
   }
