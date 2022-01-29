@@ -1,14 +1,16 @@
+const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  mode: "production",
-  entry: "./frontend/src.ts",
+  mode: process.env.NODE_ENV || "production",
+  entry: "./frontend/src/index.ts",
   module: {
     rules: [
       {
         test: /\.ts$/,
-        use: "ts-loader",
+        include: path.resolve(__dirname, "frontend/src"),
+        use: [{ loader: "ts-loader", options: { transpileOnly: true } }],
         exclude: /node_modules/,
       },
     ],
