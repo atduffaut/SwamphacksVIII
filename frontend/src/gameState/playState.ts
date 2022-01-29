@@ -1,13 +1,11 @@
 import { Application } from "pixi.js";
 import { RENDERER_HEIGHT, RENDERER_WIDTH } from "..";
-import { Entity } from "../entity/entity";
 import { Player } from "../entity/player";
 import { RockPile } from "../entity/rockPile";
 import { GameState } from "./gameState";
 
 export class PlayState extends GameState implements Updatable {
   player: Player;
-  entities: Entity[] = [];
 
   constructor(app: Application) {
     super(app);
@@ -17,12 +15,13 @@ export class PlayState extends GameState implements Updatable {
 
     for (let i = 0; i < 10; i++) {
       let rockPile = new RockPile(this);
-      rockPile.sprite.x =
-        Math.random() * (RENDERER_WIDTH - rockPile.sprite.width);
-      rockPile.sprite.y =
-        Math.random() * (RENDERER_HEIGHT - rockPile.sprite.height);
-      this.entities.push(rockPile);
-      app.stage.addChild(rockPile.sprite);
+      rockPile.setDisplayX(
+        Math.random() * (RENDERER_WIDTH - rockPile.getWidth())
+      );
+      rockPile.setDisplayY(
+        Math.random() * (RENDERER_HEIGHT - rockPile.getHeight())
+      );
+      this.addEntity(rockPile);
     }
   }
 

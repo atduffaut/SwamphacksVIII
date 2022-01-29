@@ -5,16 +5,15 @@ import { Entity } from "./entity";
 export class Player extends Entity {
   constructor(playState: PlayState) {
     super(playState);
-    this.sprite.anchor.x = 0.5;
-    this.sprite.anchor.y = 0.5;
+    this.setOriginToCenter();
   }
   getSpriteName() {
     return "knight";
   }
   update(delta: number) {}
   draw(delta: number) {
-    this.sprite.x = RENDERER_WIDTH / 2;
-    this.sprite.y = RENDERER_HEIGHT / 2;
-    this.sprite.rotation += delta / 50;
+    this.setDisplayX(RENDERER_WIDTH / 2);
+    this.setDisplayY(RENDERER_HEIGHT / 2);
+    this.setRotation(this.getRotation() + delta / 50);
   }
 }

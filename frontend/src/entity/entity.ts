@@ -44,4 +44,37 @@ export abstract class Entity implements Updatable {
   getY() {
     return this.y;
   }
+
+  setDisplayX(x: number) {
+    this.sprite.x = x;
+  }
+  setDisplayY(y: number) {
+    this.sprite.y = y;
+  }
+
+  getDisplayX(): number {
+    return this.sprite.x;
+  }
+  getDisplayY(): number {
+    return this.sprite.y;
+  }
+
+  getWidth(): number {
+    return this.sprite.width;
+  }
+  getHeight(): number {
+    return this.sprite.height;
+  }
+
+  setRotation(rotation: number) {
+    this.sprite.rotation = rotation;
+  }
+  getRotation(): number {
+    return this.sprite.rotation;
+  }
+
+  setOriginToCenter() {
+    this.sprite.anchor.x = 0.5;
+    this.sprite.anchor.y = 0.5;
+  }
 }
