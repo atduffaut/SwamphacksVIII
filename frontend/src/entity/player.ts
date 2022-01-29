@@ -6,6 +6,7 @@ export class Player extends Entity {
   constructor(playState: PlayState) {
     super(playState);
     this.setOriginToCenter();
+    this.setPos(getRendererWidth() / 2, getRendererHeight() / 2)
     this.vx = 1;
   }
   getSpriteName() {
@@ -27,6 +28,6 @@ export class Player extends Entity {
   draw(delta: number) {
     this.setDisplayX(getRendererWidth() / 2);
     this.setDisplayY(getRendererHeight() / 2);
-    this.setRotation(this.getRotation() + delta / 50);
+    //this.setRotation(this.getRotation() + delta / 50);
   }
 }

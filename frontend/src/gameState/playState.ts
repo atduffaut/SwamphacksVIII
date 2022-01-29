@@ -32,10 +32,16 @@ export class PlayState extends GameState implements Updatable {
 
   update(delta: number) {
     this.player.update(delta);
+
+    this.player.setX(Math.max(this.player.getX(),0));
+    this.player.setX(Math.min(this.player.getX(),5*this.background.getWidth()));
+    this.player.setY(Math.max(this.player.getY(),0));
+    this.player.setY(Math.min(this.player.getY(),5*this.background.getHeight()));
+
     this.entities.forEach((entity) => {
       entity.update(delta);
-      entity.setDisplayX(entity.getX() - this.player.getX());
-      entity.setDisplayY(entity.getY() - this.player.getY());
+      entity.setDisplayX(entity.getX() - this.player.getX() + this.player.getDisplayX());
+      entity.setDisplayY(entity.getY() - this.player.getY() + this.player.getDisplayY());
     });
   }
 

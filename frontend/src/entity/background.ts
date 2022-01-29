@@ -1,4 +1,5 @@
 import { Sprite } from "pixi.js";
+import { getRendererHeight, getRendererWidth } from "..";
 import { PlayState } from "../gameState/playState";
 import { Entity } from "./entity";
 import { Player } from "./player";
@@ -49,8 +50,8 @@ export class Background extends Entity {
 
   draw(delta: number) {
     this.applyToAllSprites((sprite, i, j) => {
-      sprite.x = j * this.textureWidth - this.trackedPlayer.x;
-      sprite.y = i * this.textureHeight - this.trackedPlayer.y;
+      sprite.x = j * this.textureWidth - this.trackedPlayer.x + this.trackedPlayer.getDisplayX();
+      sprite.y = i * this.textureHeight - this.trackedPlayer.y + this.trackedPlayer.getDisplayY();
     });
   }
   getSpriteName(): string {
