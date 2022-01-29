@@ -1,13 +1,18 @@
 import * as PIXI from "pixi.js";
-import { addToApp, render } from "./game";
+import { PlayState } from "./gameState/playState";
+
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+export const SCALE = 3;
 
 let app = new PIXI.Application({ resizeTo: window });
+app.stage.scale.x = SCALE;
+app.stage.scale.y = SCALE;
+
 document.body.appendChild(app.view);
 
-addToApp(app);
+let gameState = new PlayState(app);
 
 app.ticker.add((delta: number) => {
-  render(delta);
+  gameState.update(delta);
+  gameState.draw(delta);
 });
-
-console.log("test");
