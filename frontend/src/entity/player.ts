@@ -6,6 +6,7 @@ export class Player extends Entity {
   constructor(playState: PlayState) {
     super(playState);
     this.setOriginToCenter();
+    this.vx = 1;
   }
   getSpriteName() {
     return "knight";

@@ -17,8 +17,8 @@ export abstract class Entity implements Updatable {
   }
 
   update(delta: number) {
-    this.sprite.x += this.vx * delta;
-    this.sprite.y += this.vy * delta;
+    this.x += this.vx * delta;
+    this.y += this.vy * delta;
   }
   abstract draw(delta: number);
 

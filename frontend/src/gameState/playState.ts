@@ -17,6 +17,8 @@ export class PlayState extends GameState implements Updatable {
     this.player = new Player(this);
     app.stage.addChild(this.player.sprite);
 
+    this.background.lockToPlayer(this.player);
+
     for (let i = 0; i < 10; i++) {
       let rockPile = new RockPile(this);
       rockPile.setDisplayX(
