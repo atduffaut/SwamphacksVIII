@@ -1,4 +1,4 @@
-import { getRendererHeight, getRendererWidth } from "..";
+import { getRendererHeight, getRendererWidth, SCALE } from "..";
 import { PlayState } from "../gameState/playState";
 import { Entity } from "./entity";
 
@@ -16,8 +16,8 @@ export class Player extends Entity {
   }
   move(x, y)
   {
-    let myX = this.getDisplayX()*3;
-    let myY = this.getDisplayY()*3;
+    let myX = this.getDisplayX()*SCALE;
+    let myY = this.getDisplayY()*SCALE;
 
     let dist = Math.sqrt(Math.pow(myX - x, 2) + Math.pow(myY - y, 2));
 
@@ -25,7 +25,7 @@ export class Player extends Entity {
     this.setVy((y - myY) / dist);
   }
   rotate(x, y) {
-    this.setRotation(Math.atan2(y - 3*this.getDisplayY(), x - 3*this.getDisplayX()) + 3*Math.PI/2);
+    this.setRotation(Math.atan2(y - SCALE*this.getDisplayY(), x - SCALE*this.getDisplayX()) + 3*Math.PI/2);
   }   
   draw(delta: number) {
     this.setDisplayX(getRendererWidth() / 2);
