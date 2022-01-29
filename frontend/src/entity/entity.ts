@@ -1,4 +1,5 @@
-import { Sprite } from "pixi.js";
+import { Sprite, Texture } from "pixi.js";
+import { TEXTURES } from "../assetManager";
 import { GameState } from "../gameState/gameState";
 
 export abstract class Entity implements Updatable {
@@ -12,16 +13,19 @@ export abstract class Entity implements Updatable {
 
   constructor(gameState: GameState) {
     this.gameState = gameState;
-    this.setSpriteFromPath(this.getSpritePath());
+    this.setSpriteTexture(this.getSpriteTexture());
   }
 
   abstract update(delta: number);
   abstract draw(delta: number);
 
-  private setSpriteFromPath(path: string) {
-    this.sprite = Sprite.from(path);
+  private setSpriteTexture(texture: Texture) {
+    this.sprite = new Sprite(texture);
   }
-  abstract getSpritePath(): string;
+  getSpriteTexture(): Texture {
+    return TEXTURES[this.getSpriteName()];
+  }
+  abstract getSpriteName(): string;
 
   setX(x: number) {
     this.x = x;
