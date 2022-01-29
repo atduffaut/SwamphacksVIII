@@ -24,9 +24,12 @@ export class Player extends Entity {
     this.setVx((x - myX) / dist);
     this.setVy((y - myY) / dist);
   }
+  rotate(x, y) {
+    this.setRotation(Math.atan2(y - 3*this.getDisplayY(), x - 3*this.getDisplayX()) + 3*Math.PI/2);
+  }   
   draw(delta: number) {
     this.setDisplayX(getRendererWidth() / 2);
     this.setDisplayY(getRendererHeight() / 2);
-    this.setRotation(this.getRotation() + delta / 50);
+    this.setRotation(this.getRotation());
   }
 }

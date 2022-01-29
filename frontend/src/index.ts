@@ -17,6 +17,7 @@ setTimeout(() => {
 
   window.addEventListener('mousemove', function (event) {
     gameState.player.move(event.x, event.y);
+    gameState.player.rotate(event.x, event.y);
   });
 
   app.ticker.add((delta: number) => {
