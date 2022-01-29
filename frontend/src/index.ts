@@ -15,6 +15,10 @@ document.body.appendChild(app.view);
 setTimeout(() => {
   let gameState = new PlayState(app);
 
+  window.addEventListener('click', function (event) {
+    gameState.player.move(event.x, event.y);
+  });
+
   app.ticker.add((delta: number) => {
     gameState.update(delta);
     gameState.draw(delta);
