@@ -14,6 +14,16 @@ export class Player extends Entity {
   update(delta: number) {
     super.update(delta);
   }
+  move(x, y)
+  {
+    let myX = this.getDisplayX()*3;
+    let myY = this.getDisplayY()*3;
+
+    let dist = Math.sqrt(Math.pow(myX - x, 2) + Math.pow(myY - y, 2));
+
+    this.setVx((x - myX) / dist);
+    this.setVy((y - myY) / dist);
+  }
   draw(delta: number) {
     this.setDisplayX(getRendererWidth() / 2);
     this.setDisplayY(getRendererHeight() / 2);
