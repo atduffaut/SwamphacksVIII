@@ -5,11 +5,11 @@ import { Background } from "../entity/background";
 import { Player } from "../entity/player";
 import { RockPile } from "../entity/rockPile";
 import { GameState } from "./gameState";
-import {TotalGameState, PlayerState} from "../types";
+import { TotalGameState, PlayerState } from "../types";
 
 type OtherPlayers = {
   [id: string]: Player;
-}
+};
 
 export class PlayState extends GameState implements Updatable {
   player: Player;
@@ -47,19 +47,21 @@ export class PlayState extends GameState implements Updatable {
   }
 
   setState(state: TotalGameState) {
-    state.entities.forEach(entity => {
-      if (entity.type === "rock"){
+    state.entities.forEach((entity) => {
+      if (entity.type === "rock") {
         let rockPile = new RockPile(this);
         rockPile.setPos(entity.x, entity.y);
         this.addEntity(rockPile);
       }
-    })
+    });
 
-    Object.entries(state.players).reduce((object, [id, playerState]: [string, PlayerState]) => {
-      this.addOtherPlayerFromState(id, playerState);
-      return ({...object,
-        [id]: playerState});
-      }, {});
+    Object.entries(state.players).reduce(
+      (object, [id, playerState]: [string, PlayerState]) => {
+        this.addOtherPlayerFromState(id, playerState);
+        return { ...object, [id]: playerState };
+      },
+      {}
+    );
 
     this.stateSet = true;
   }
@@ -75,6 +77,7 @@ export class PlayState extends GameState implements Updatable {
   }
 
   onCollide(player, entity) {
+<<<<<<< HEAD
     if(entity.getSpriteName() == "rock_pile") {
       if(entity.speed == 0)
       {
@@ -96,6 +99,19 @@ export class PlayState extends GameState implements Updatable {
       {
         player.takeDamage();
       }
+=======
+    if (entity.getSpriteName() === "rock_pile") {
+      if (entity.speed === 0 && player.speed <= 2) {
+        player.bounce();
+      } else if (entity.speed <= player.speed) {
+        entity.hit(player.getVx(), player.getVy(), player.speed * 2);
+      } else if (entity.speed > player.speed) {
+        //player.takedamage();
+      }
+    }
+    if (entity.getSpriteName() === "knight") {
+      //player.takedamage();
+>>>>>>> 433defa24b8a026f6f6e6fab99fed25d688aaae6
     }
   }
 
@@ -129,7 +145,7 @@ export class PlayState extends GameState implements Updatable {
     );
 
     this.handleCollisions();
-    
+
     this.entities.forEach((entity) => {
       entity.update(delta);
       entity.setDisplayX(
@@ -140,7 +156,7 @@ export class PlayState extends GameState implements Updatable {
       );
     });
 
-    Object.values(this.otherPlayers).forEach(player => {
+    Object.values(this.otherPlayers).forEach((player) => {
       player.update(delta);
       player.setDisplayX(
         player.getX() - this.player.getX() + this.player.getDisplayX()

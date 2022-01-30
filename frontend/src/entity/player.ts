@@ -62,9 +62,7 @@ export class Player extends Entity {
   }
   takeDamage()
   {
-    console.log("alerting...");
-    alert("You are dead");
-    location.reload();
+    //die
   }
   speedManager(delta)
   {
