@@ -1,3 +1,9 @@
+type PlayerInfo = {
+  id: string;
+  x: number;
+  y: number;
+}
+
 export type EntityState = {
   type: string;
   x: number;

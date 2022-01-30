@@ -1,14 +1,23 @@
-export const MAP_WIDTH = 2000;
-export const MAP_HEIGHT = 2000;
+export const MAP_WIDTH = 2560;
+export const MAP_HEIGHT = 2560;
+
+type PlayerInfo = {
+  id: string;
+  x: number;
+  y: number;
+}
 
 type EntityState = {
   type: string;
   x: number;
   y: number;
+  vx: number;
+  vy: number;
 };
 
 type PlayerState = EntityState & {
   name: string;
+  rotation: number;
 };
 
 export type PlayerStates = {
@@ -31,7 +40,10 @@ export const generatePlayer = (x: number, y: number): PlayerState => {
     type: "player",
     x: x,
     y: y,
+    vx: 0,
+    vy: 0,
     name: "Knight " + Math.floor(Math.random() * 1000).toString(),
+    rotation: 0
   };
 };
 
@@ -40,6 +52,8 @@ const generateRock = (x: number, y: number): EntityState => {
     type: "rock",
     x: x,
     y: y,
+    vx: 0,
+    vy: 0,
   };
 };
 

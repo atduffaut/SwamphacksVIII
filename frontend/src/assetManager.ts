@@ -5,6 +5,7 @@ const PREFIX = "assets";
 
 const RAW_ASSET_PATHS = {
   knight: "knight.png",
+  red_knight: "red_knight.png",
   rock_pile: "rock_pile.png",
   background: "background.png",
 };

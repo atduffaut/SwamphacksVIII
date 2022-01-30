@@ -1,4 +1,5 @@
 import { Application } from "pixi.js";
+import * as PIXI from "pixi.js";
 import { getRendererHeight, getRendererWidth } from "..";
 import { Background } from "../entity/background";
 import { Player } from "../entity/player";
@@ -15,6 +16,9 @@ export class PlayState extends GameState implements Updatable {
   otherPlayers: OtherPlayers = {};
   background: Background;
   stateSet: boolean = false;
+  cooldownBorder: PIXI.Graphics = new PIXI.Graphics();
+  cooldownFilling: PIXI.Graphics = new PIXI.Graphics();
+
 
   constructor(app: Application) {
     super(app);
@@ -28,6 +32,18 @@ export class PlayState extends GameState implements Updatable {
     app.stage.addChild(this.player.sprite);
 
     this.background.lockToPlayer(this.player);
+
+    this.cooldownBorder.lineStyle(2, 0x1020aa)
+    this.cooldownBorder.drawRect(0, 0, 50, 10);
+    this.cooldownBorder.x = (getRendererWidth() / 2) - 25;
+    this.cooldownBorder.y = (getRendererHeight() / 2) - 40;
+
+    this.cooldownFilling.beginFill(0x4455ff);
+    this.cooldownFilling.drawRect(0, 0, 50 + 25, 10);
+    this.cooldownFilling.x = (getRendererWidth() / 2 - 25);
+    this.cooldownFilling.y = (getRendererHeight() / 2 - 40);
+    this.app.stage.addChild(this.cooldownFilling);
+    this.app.stage.addChild(this.cooldownBorder);
   }
 
   setState(state: TotalGameState) {
@@ -59,20 +75,27 @@ export class PlayState extends GameState implements Updatable {
   }
 
   onCollide(player, entity) {
-    console.log("colliding");
     if(entity.getSpriteName() == "rock_pile") {
       if(entity.speed == 0)
       {
         if(player.speed >= 2){
           entity.hit(player.getVx(), player.getVy(), player.speed * 2);
         }
-        else{
+        else if(entity.speed==0){
           player.bounce();
+        }
+        else
+        {
+          player.takeDamage();
         }
       }
     }
     if (entity.getSpriteName() == "knight") {
-      //player.takedamage();
+      console.log("player collision "+entity.speed+" "+player.speed);
+      if(entity.speed>player.speed)
+      {
+        player.takeDamage();
+      }
     }
   }
 
@@ -82,6 +105,11 @@ export class PlayState extends GameState implements Updatable {
         this.onCollide(this.player, entity);
       }
     });
+    for(let otherPlayer of Object.values(this.otherPlayers)){
+      if(this.isColliding(this.player,otherPlayer)){
+        this.onCollide(this.player,otherPlayer);
+      }
+    }
   }
 
   update(delta: number) {
@@ -121,6 +149,17 @@ export class PlayState extends GameState implements Updatable {
         player.getY() - this.player.getY() + this.player.getDisplayY()
       );
     });
+
+  }
+
+  drawPlayerCooldownBar()
+  {
+    this.cooldownFilling.width = 50 * (1 - (this.player.cooldown / 5));
+    this.cooldownFilling.x = (getRendererWidth() / 2 - 25);
+    this.cooldownFilling.y = (getRendererHeight() / 2 - 40);
+
+    this.cooldownBorder.x = (getRendererWidth() / 2) - 25;
+    this.cooldownBorder.y = (getRendererHeight() / 2) - 40;
   }
 
   draw(delta: number) {
@@ -143,10 +182,11 @@ export class PlayState extends GameState implements Updatable {
     Object.values(this.otherPlayers).forEach((player) => {
       player.draw(delta);
     });
+
+    this.drawPlayerCooldownBar();
   }
 
   addOtherPlayerFromState(id: string, playerState: PlayerState) {
-    console.log("pstate", playerState);
     let otherPlayer = new Player(this);
     otherPlayer.setPos(playerState.x, playerState.y);
     this.addOtherPlayer(id, otherPlayer);

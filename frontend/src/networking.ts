@@ -1,5 +1,6 @@
 import { io, Socket } from "socket.io-client";
-import { onReceiveSetup, onReceivePlayerDisconnect, onReceivePlayerJoin } from ".";
+import { onReceiveSetup, onReceivePlayerDisconnect, onReceivePlayerJoin, onMovePlayer,
+  onReceiveRocks } from ".";
 import {
   onReceivePositions,
 } from "./events/events";
@@ -17,6 +18,10 @@ export const setupNetworking = (): Socket => {
   socket.on("positions", onReceivePositions);
 
   socket.on("playerJoined", onReceivePlayerJoin);
+
+  socket.on("move", onMovePlayer);
+
+  socket.on("rocks", onReceiveRocks);
 
   socket.on("playerDisconnected", onReceivePlayerDisconnect);
 
