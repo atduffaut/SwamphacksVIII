@@ -25,7 +25,7 @@ export class PlayState extends GameState implements Updatable {
 
     this.background = new Background(this);
 
-    this.player = new Player(this);
+    this.player = new Player(this, "");
     this.player.setOriginToCenter();
     this.player.setPos(getRendererWidth() / 2, getRendererHeight() / 2);
 
@@ -77,7 +77,6 @@ export class PlayState extends GameState implements Updatable {
   }
 
   onCollide(player, entity) {
-<<<<<<< HEAD
     if(entity.getSpriteName() == "rock_pile") {
       if(entity.speed == 0)
       {
@@ -99,19 +98,6 @@ export class PlayState extends GameState implements Updatable {
       {
         player.takeDamage();
       }
-=======
-    if (entity.getSpriteName() === "rock_pile") {
-      if (entity.speed === 0 && player.speed <= 2) {
-        player.bounce();
-      } else if (entity.speed <= player.speed) {
-        entity.hit(player.getVx(), player.getVy(), player.speed * 2);
-      } else if (entity.speed > player.speed) {
-        //player.takedamage();
-      }
-    }
-    if (entity.getSpriteName() === "knight") {
-      //player.takedamage();
->>>>>>> 433defa24b8a026f6f6e6fab99fed25d688aaae6
     }
   }
 

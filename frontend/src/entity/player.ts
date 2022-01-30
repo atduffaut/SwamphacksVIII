@@ -19,6 +19,11 @@ export class Player extends Entity {
   constructor(playState: PlayState, name: string) {
     super(playState);
 
+    if (name) {
+      this.setName(name);
+    }
+  }
+  setName(name: string) {
     this.nameplate = new PIXI.Text(name);
 
     this.nameplate.width = 40;
@@ -96,11 +101,12 @@ export class Player extends Entity {
   
   draw(delta: number) {
     this.speedManager(delta);
-    this.nameplate.rotation = -1 * this.getRotation();
+    if (this.nameplate){
+      this.nameplate.rotation = -1 * this.getRotation();
 
-    this.nameplate.x = -60 * Math.sin(this.getRotation()) - 20 * Math.cos(this.getRotation()); 
-    this.nameplate.y = -60 * Math.cos(this.getRotation()) + 20 * Math.sin(this.getRotation()); 
-
+      this.nameplate.x = -60 * Math.sin(this.getRotation()) - 20 * Math.cos(this.getRotation()); 
+      this.nameplate.y = -60 * Math.cos(this.getRotation()) + 20 * Math.sin(this.getRotation()); 
+    }
   }
 
   setId(id: string) {

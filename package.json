@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/atduffaut/SwamphacksVIII#readme",
   "dependencies": {
+    "@pixi/sound": "^4.2.0",
     "eslint": "^8.8.0",
     "express": "^4.17.2",
     "pixi.js": "^6.2.2",
