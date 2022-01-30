@@ -1,11 +1,9 @@
 import { io, Socket } from "socket.io-client";
+import { onReceiveSetup, onReceivePlayerDisconnect, onReceivePlayerJoin } from ".";
 import {
-  onReceivePlayerDisconnect,
-  onReceivePlayerJoin,
   onReceivePositions,
-  onReceiveSetup,
 } from "./events/events";
-import { EntityState } from "./types";
+import { EntityState, PlayerState } from "./types";
 
 export const setupNetworking = (): Socket => {
   const socket = io();

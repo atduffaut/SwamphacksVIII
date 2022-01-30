@@ -3,6 +3,7 @@ import { getRendererHeight, getRendererWidth } from "..";
 import { PlayState } from "../gameState/playState";
 import { Entity } from "./entity";
 import { Player } from "./player";
+import {SCALE} from ".."
 
 const MAP_WIDTH = 2000;
 const MAP_HEIGHT = 2000;
@@ -17,8 +18,9 @@ export class Background extends Entity {
     super(playState);
 
     const texture = this.getSpriteTexture();
-    const textureWidth = texture.width;
-    const textureHeight = texture.height;
+    const textureWidth = texture.width > 1 ? texture.width : 512;
+    const textureHeight = texture.height > 1 ? texture.height : 512;
+    
 
     this.textureWidth = textureWidth;
     this.textureHeight = textureHeight;

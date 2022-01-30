@@ -20,17 +20,22 @@ app.get("/", (req, res) => {
 const httpServer = createServer(app);
 const io = new Server(httpServer, {});
 
+let idCount = 0;
 const state = createGame();
 io.on("connection", (socket) => {
+  let personalID = idCount.toString();
+  
+  idCount++;
+
   socket.emit("setup", state);
 
   const player = generatePlayer(randomMapX(), randomMapY());
-  state.players[socket.id] = player;
-  io.emit("playerJoined", player);
+  state.players[personalID] = player;
+  socket.broadcast.emit("playerJoined", personalID, player);
 
   socket.on("disconnect", () => {
-    io.emit("playerDisconnected", socket.id);
-    delete state.players[socket.id];
+    io.emit("playerDisconnected", personalID);
+    delete state.players[personalID];
 
     console.log("user disconnected");
   });

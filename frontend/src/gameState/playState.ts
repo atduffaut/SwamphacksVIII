@@ -4,10 +4,17 @@ import { Background } from "../entity/background";
 import { Player } from "../entity/player";
 import { RockPile } from "../entity/rockPile";
 import { GameState } from "./gameState";
+import {TotalGameState, PlayerState} from "../types";
+
+type OtherPlayers = {
+  [id: string]: Player;
+}
 
 export class PlayState extends GameState implements Updatable {
   player: Player;
+  otherPlayers: OtherPlayers = {};
   background: Background;
+  stateSet: boolean = false;
 
   constructor(app: Application) {
     super(app);
@@ -15,35 +22,30 @@ export class PlayState extends GameState implements Updatable {
     this.background = new Background(this);
 
     this.player = new Player(this);
+    this.player.setOriginToCenter();
+    this.player.setPos(getRendererWidth() / 2, getRendererHeight() / 2);
+
     app.stage.addChild(this.player.sprite);
 
     this.background.lockToPlayer(this.player);
+  }
 
-    for (let i = 0; i < 100; i++) {
-      let rockPile = new RockPile(this);
-      rockPile.setX(
-        Math.random() * (this.background.getWidth() * 5 - rockPile.getWidth())
-      );
-      rockPile.setY(
-        Math.random() * (this.background.getHeight() * 5 - rockPile.getHeight())
-      );
-      // rockPile.setVy(0.1);
-      this.addEntity(rockPile);
-    }
+  setState(state: TotalGameState) {
+    state.entities.forEach(entity => {
+      if (entity.type === "rock"){
+        let rockPile = new RockPile(this);
+        rockPile.setPos(entity.x, entity.y);
+        this.addEntity(rockPile);
+      }
+    })
 
-    for (let i = 0; i < 100; i++) {
-      let otherPlayer = new Player(this);
-      otherPlayer.setX(
-        Math.random() *
-          (this.background.getWidth() * 5 - otherPlayer.getWidth())
-      );
-      otherPlayer.setY(
-        Math.random() *
-          (this.background.getHeight() * 5 - otherPlayer.getHeight())
-      );
-      // rockPile.setVy(0.1);
-      this.addEntity(otherPlayer);
-    }
+    Object.entries(state.players).reduce((object, [id, playerState]: [string, PlayerState]) => {
+      this.addOtherPlayerFromState(id, playerState);
+      return ({...object,
+        [id]: playerState});
+      }, {});
+
+    this.stateSet = true;
   }
 
   isColliding(player, entity) {
@@ -83,6 +85,10 @@ export class PlayState extends GameState implements Updatable {
   }
 
   update(delta: number) {
+    if (!this.stateSet) {
+      return;
+    }
+
     this.player.update(delta);
 
     this.player.setX(Math.max(this.player.getX(), 0));
@@ -105,9 +111,23 @@ export class PlayState extends GameState implements Updatable {
         entity.getY() - this.player.getY() + this.player.getDisplayY()
       );
     });
+
+    Object.values(this.otherPlayers).forEach(player => {
+      player.update(delta);
+      player.setDisplayX(
+        player.getX() - this.player.getX() + this.player.getDisplayX()
+      );
+      player.setDisplayY(
+        player.getY() - this.player.getY() + this.player.getDisplayY()
+      );
+    });
   }
 
   draw(delta: number) {
+    if (!this.stateSet) {
+      return;
+    }
+
     this.background.draw(delta);
 
     this.player.move();
@@ -119,5 +139,21 @@ export class PlayState extends GameState implements Updatable {
     this.entities.forEach((entity) => {
       entity.draw(delta);
     });
+
+    Object.values(this.otherPlayers).forEach((player) => {
+      player.draw(delta);
+    });
+  }
+
+  addOtherPlayerFromState(id: string, playerState: PlayerState) {
+    console.log("pstate", playerState);
+    let otherPlayer = new Player(this);
+    otherPlayer.setPos(playerState.x, playerState.y);
+    this.addOtherPlayer(id, otherPlayer);
+  }
+
+  addOtherPlayer(id: string, player: Player) {
+    this.otherPlayers[id] = player;
+    this.app.stage.addChild(player.sprite);
   }
 }

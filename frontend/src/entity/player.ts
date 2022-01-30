@@ -11,8 +11,6 @@ export class Player extends Entity {
 
   constructor(playState: PlayState) {
     super(playState);
-    this.setOriginToCenter();
-    this.setPos(getRendererWidth() / 2, getRendererHeight() / 2)
   }
   getSpriteName() {
     return "knight";
